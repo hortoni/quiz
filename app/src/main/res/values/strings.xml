@@ -3,5 +3,9 @@
     <string name="title_activity_question">Questão</string>
     <string name="nextQuestion">Próxima Questão</string>
     <string name="reply">Responder</string>
+    <string name="correct_answer">Resposta Correta</string>
+    <string name="wrong_answer">Resposta Incorreta</string>
+    <string name="error">Error. Por favor tente novamente mais tarde.</string>
+    <string name="error_select_asnwer">Por Favor, selecione uma resposta.</string>
 
 </resources>

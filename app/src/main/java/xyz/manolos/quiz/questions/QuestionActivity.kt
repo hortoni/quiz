@@ -1,5 +1,9 @@
 package xyz.manolos.quiz.questions
 
+import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -49,49 +53,71 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
 
         nextQuestionButton.setOnClickListener {
             questionNumber++
-            showProgressBar()
             presenter.nextStep(questionNumber)
         }
 
         replyQuestionButton.setOnClickListener {
-            var answerString = optionsList.getItemAtPosition(optionsList.checkedItemPosition) as String
-            presenter.sendAnswer(currentQuestion!!.id , Answer(answerString ))
+            if (optionsList.getItemAtPosition(optionsList.checkedItemPosition) == null) {
+                Toast.makeText(this, R.string.error_select_asnwer, Toast.LENGTH_LONG).show()
+            } else {
+                var answerString = optionsList.getItemAtPosition(optionsList.checkedItemPosition) as String
+                presenter.sendAnswer(currentQuestion!!.id, Answer(answerString))
+            }
         }
-
     }
 
     override fun showQuestion(question: Question) {
         currentQuestion = question
-        questionTextView.text =  currentQuestion!!.statement
+        questionTextView.text = currentQuestion!!.statement
+        supportActionBar!!.title = "Questão " + (questionNumber + 1)
         val adapter = ArrayAdapter(this, R.layout.single_choice_item_left, currentQuestion!!.options)
         optionsList.adapter = adapter
-        hideProgressBar()
+        changeLayoutToReply()
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun changeLayoutToReply() {
+        optionsList.isEnabled = true
+        optionsList.selector.colorFilter = PorterDuffColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_IN)
+        replyQuestionButton.visibility = View.VISIBLE
+        nextQuestionButton.visibility = View.GONE
     }
 
     override fun showError() {
         // show toast
+        Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
     }
 
     override fun showResult() {
-        hideProgressBar()
-        Toast.makeText(this, "ACABOU", Toast.LENGTH_LONG).show()
-
+        Toast.makeText(this, "ACABOU - Acertou : " + presenter.correctAnswers, Toast.LENGTH_LONG).show()
+        finish()
     }
+
 
     override fun showAnswerResult(result: Boolean) {
         if (result) {
-            Toast.makeText(this, "resposta correta", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.correct_answer), Toast.LENGTH_LONG).show()
+            optionsList.selector.colorFilter = PorterDuffColorFilter(Color.GREEN, PorterDuff.Mode.SRC_IN)
         } else {
-            Toast.makeText(this, "resposta incorreta", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.wrong_answer), Toast.LENGTH_LONG).show()
+            optionsList.selector.colorFilter = PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
         }
+        changeLayoutToNextQuestion()
+    }
+
+    @SuppressLint("RestrictedApi")
+    private fun changeLayoutToNextQuestion() {
+        optionsList.isEnabled = false
+        replyQuestionButton.visibility = View.GONE
+        nextQuestionButton.visibility = View.VISIBLE
     }
 
     override fun showProgressBar() {
-        progressBar.visibility = View.VISIBLE
+        progressBarFrame.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        progressBar.visibility = View.GONE
+        progressBarFrame.visibility = View.GONE
     }
 
 

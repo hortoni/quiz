@@ -8,7 +8,7 @@ import xyz.manolos.quiz.model.Answer
 import xyz.manolos.quiz.service.QuestionService
 import javax.inject.Inject
 
-private const val MAX_QUESTION = 10
+private const val MAX_QUESTION = 3
 
 class QuestionPresenter @Inject constructor(
     private val questionService: QuestionService,
@@ -16,6 +16,7 @@ class QuestionPresenter @Inject constructor(
 ) {
 
     private val disposables = CompositeDisposable()
+    var correctAnswers : Int = 0
 
     fun nextStep(questionNumber: Int) {
         if (questionNumber == MAX_QUESTION) {
@@ -26,28 +27,37 @@ class QuestionPresenter @Inject constructor(
     }
 
     private fun fetchQuestion() {
+        view.showProgressBar()
         questionService.fetch()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = {
                     view.showQuestion(it)
+                    view.hideProgressBar()
                 },
                 onError = {
                     view.showError()
+                    view.hideProgressBar()
                 }
             )
             .addTo(disposables)
     }
 
     fun sendAnswer(questionId : String , answer : Answer) {
+        view.showProgressBar()
         questionService.sendAnswer(questionId, answer)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onSuccess = {
+                    if (it.result) {
+                        correctAnswers ++
+                    }
                     view.showAnswerResult(it.result)
+                    view.hideProgressBar()
                 },
                 onError = {
                     view.showError()
+                    view.hideProgressBar()
                 }
             )
             .addTo(disposables)
