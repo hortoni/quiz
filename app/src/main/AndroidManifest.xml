@@ -23,8 +23,7 @@
         </activity>
         <activity
                 android:name=".questions.QuestionActivity"
-                android:label="@string/title_activity_question"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:label="@string/title_activity_question">
         </activity>
     </application>
 

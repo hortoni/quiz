@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">quiz</string>
-    <string name="title_activity_question">QuestionActivity</string>
+    <string name="title_activity_question">Questão</string>
+    <string name="nextQuestion">Próxima Questão</string>
+    <string name="reply">Responder</string>
+
 </resources>

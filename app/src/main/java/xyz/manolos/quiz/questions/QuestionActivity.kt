@@ -1,13 +1,14 @@
 package xyz.manolos.quiz.questions
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_question.*
 import xyz.manolos.quiz.R
 import xyz.manolos.quiz.injector
+import xyz.manolos.quiz.model.Answer
 import xyz.manolos.quiz.model.Question
 import javax.inject.Inject
 
@@ -46,18 +47,24 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
 
         currentQuestion?.let { showQuestion(it) } ?: presenter.nextStep(questionNumber)
 
-        addQuestionButton.setOnClickListener {
+        nextQuestionButton.setOnClickListener {
             questionNumber++
             showProgressBar()
             presenter.nextStep(questionNumber)
+        }
+
+        replyQuestionButton.setOnClickListener {
+            var answerString = optionsList.getItemAtPosition(optionsList.checkedItemPosition) as String
+            presenter.sendAnswer(currentQuestion!!.id , Answer(answerString ))
         }
 
     }
 
     override fun showQuestion(question: Question) {
         currentQuestion = question
-        Toast.makeText(this, "statement: ${question.statement} - id: ${question.id}", Toast.LENGTH_LONG).show()
-        Log.i("TEST", "statement: ${question.statement} - id: ${question.id}")
+        questionTextView.text =  currentQuestion!!.statement
+        val adapter = ArrayAdapter(this, R.layout.single_choice_item_left, currentQuestion!!.options)
+        optionsList.adapter = adapter
         hideProgressBar()
     }
 
@@ -66,8 +73,9 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
     }
 
     override fun showResult() {
-        Toast.makeText(this, "result", Toast.LENGTH_LONG).show()
-        Log.i("TEST", "result")
+        hideProgressBar()
+        Toast.makeText(this, "ACABOU", Toast.LENGTH_LONG).show()
+
     }
 
     override fun showAnswerResult(result: Boolean) {
