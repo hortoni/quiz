@@ -5,6 +5,8 @@ import dagger.BindsInstance
 import dagger.Component
 import xyz.manolos.quiz.questions.QuestionComponent
 import xyz.manolos.quiz.questions.QuestionModule
+import xyz.manolos.quiz.result.ResultComponent
+import xyz.manolos.quiz.result.ResultModule
 import javax.inject.Singleton
 
 @Component(modules = [ServiceModule::class])
@@ -18,6 +20,7 @@ interface ApplicationComponent {
         fun build(): ApplicationComponent
     }
 
-    fun plus(questionModule: QuestionModule): QuestionComponent
+    fun plusQuestion(questionModule: QuestionModule): QuestionComponent
 
+    fun plusResult(resultModule: ResultModule) : ResultComponent
 }

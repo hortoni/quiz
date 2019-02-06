@@ -12,4 +12,11 @@
     <string name="play_again">Jogar novamente</string>
     <string name="title_activity_result">ResultActivity</string>
 
+    <plurals
+            name="questions_result">
+        <item quantity="zero">%s, você não acertou nenhuma pergunta.</item>
+        <item quantity="one">%s, você acertou 1 pergunta.</item>
+        <item quantity="other">%s, você acertou %d perguntas.</item>
+    </plurals>
+
 </resources>

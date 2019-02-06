@@ -12,10 +12,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_question.*
 import xyz.manolos.quiz.R
-import xyz.manolos.quiz.ResultActivity
 import xyz.manolos.quiz.injector
 import xyz.manolos.quiz.model.Answer
 import xyz.manolos.quiz.model.Question
+import xyz.manolos.quiz.result.ResultActivity
 import javax.inject.Inject
 
 
@@ -28,9 +28,9 @@ interface QuestionView {
     fun hideProgressBar()
 }
 
-private const val QUESTION_NUMBER = "questionNumber"
+private const val QUESTION_NUMBER = "question_number"
 private const val CURRENT_QUESTION = "current_question"
-private const val USERNAME= "username"
+private const val USERNAME = "username"
 
 class QuestionActivity : AppCompatActivity(), QuestionView {
 
@@ -45,7 +45,7 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
         setContentView(R.layout.activity_question)
 
         injector
-            .plus(QuestionModule(this))
+            .plusQuestion(QuestionModule(this))
             .inject(this)
 
         username = intent.getStringExtra("username")
@@ -82,8 +82,8 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
 
     override fun showResult() {
         val intent = Intent(this, ResultActivity::class.java)
-        intent.putExtra("username" , username)
-        intent.putExtra("correctAnswer" , presenter.correctAnswers)
+        intent.putExtra("username", username)
+        intent.putExtra("correctAnswer", presenter.correctAnswers)
         startActivity(intent)
         finish()
     }
