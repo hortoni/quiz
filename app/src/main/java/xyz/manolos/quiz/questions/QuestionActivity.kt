@@ -31,6 +31,7 @@ interface QuestionView {
 private const val QUESTION_NUMBER = "question_number"
 private const val CURRENT_QUESTION = "current_question"
 private const val USERNAME = "username"
+private const val CORRECT_ANSWER = "correctAnswer"
 
 class QuestionActivity : AppCompatActivity(), QuestionView {
 
@@ -48,7 +49,7 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
             .plusQuestion(QuestionModule(this))
             .inject(this)
 
-        username = intent.getStringExtra("username")
+        username = intent.getStringExtra(USERNAME)
 
         questionNumber = savedInstanceState?.getInt(QUESTION_NUMBER) ?: 0
 
@@ -69,7 +70,7 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
     override fun showQuestion(question: Question) {
         currentQuestion = question
         questionTextView.text = currentQuestion!!.statement
-        supportActionBar!!.title = "Questão " + (questionNumber + 1)
+        supportActionBar!!.title = String.format(getString(R.string.question), questionNumber + 1)
         val adapter = ArrayAdapter(this, R.layout.single_choice_item_left, currentQuestion!!.options)
         optionsList.selector.colorFilter = PorterDuffColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_IN)
         optionsList.adapter = adapter
@@ -82,8 +83,8 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
 
     override fun showResult() {
         val intent = Intent(this, ResultActivity::class.java)
-        intent.putExtra("username", username)
-        intent.putExtra("correctAnswer", presenter.correctAnswers)
+        intent.putExtra(USERNAME, username)
+        intent.putExtra(CORRECT_ANSWER, presenter.correctAnswers)
         startActivity(intent)
         finish()
     }

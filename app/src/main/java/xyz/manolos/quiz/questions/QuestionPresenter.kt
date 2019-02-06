@@ -8,7 +8,7 @@ import xyz.manolos.quiz.model.Answer
 import xyz.manolos.quiz.service.QuestionService
 import javax.inject.Inject
 
-private const val MAX_QUESTION = 1
+private const val MAX_QUESTION = 10
 
 class QuestionPresenter @Inject constructor(
     private val questionService: QuestionService,

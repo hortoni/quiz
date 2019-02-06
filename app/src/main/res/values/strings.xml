@@ -11,6 +11,7 @@
     <string name="username_error">Por favor, digite seu nome antes de continuar.</string>
     <string name="play_again">Jogar novamente</string>
     <string name="title_activity_result">ResultActivity</string>
+    <string name="question">Questão %d</string>
 
     <plurals
             name="questions_result">

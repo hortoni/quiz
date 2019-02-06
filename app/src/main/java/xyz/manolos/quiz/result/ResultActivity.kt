@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_result.*
-import xyz.manolos.quiz.HomeActivity
 import xyz.manolos.quiz.R
+import xyz.manolos.quiz.home.HomeActivity
 import xyz.manolos.quiz.injector
 import javax.inject.Inject
 

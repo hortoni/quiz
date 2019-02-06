@@ -3,6 +3,8 @@ package xyz.manolos.quiz.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import xyz.manolos.quiz.home.HomeComponent
+import xyz.manolos.quiz.home.HomeModule
 import xyz.manolos.quiz.questions.QuestionComponent
 import xyz.manolos.quiz.questions.QuestionModule
 import xyz.manolos.quiz.result.ResultComponent
@@ -23,4 +25,6 @@ interface ApplicationComponent {
     fun plusQuestion(questionModule: QuestionModule): QuestionComponent
 
     fun plusResult(resultModule: ResultModule) : ResultComponent
+
+    fun plusHome(homeModule: HomeModule) : HomeComponent
 }
