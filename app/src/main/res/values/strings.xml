@@ -9,6 +9,7 @@
     <string name="error_select_asnwer">Por Favor, selecione uma resposta.</string>
     <string name="your_name">Digite seu nome</string>
     <string name="username_error">Por favor, digite seu nome antes de continuar.</string>
+    <string name="play_again">Jogar novamente</string>
     <string name="title_activity_result">ResultActivity</string>
 
 </resources>

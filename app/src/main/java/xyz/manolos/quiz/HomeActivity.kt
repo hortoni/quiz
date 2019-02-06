@@ -18,8 +18,8 @@ class HomeActivity : AppCompatActivity() {
             if (usernameEditText.text.isBlank()) {
                 Toast.makeText(this, getString(R.string.username_error), Toast.LENGTH_LONG).show()
             } else {
-                intent.putExtra("username" , usernameEditText.text.toString())
-                startActivity(intent)
+                intent.putExtra("username", usernameEditText.text.toString())
+                this.startActivity(intent)
             }
         }
     }

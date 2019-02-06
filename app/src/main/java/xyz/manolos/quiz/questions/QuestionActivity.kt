@@ -1,6 +1,7 @@
 package xyz.manolos.quiz.questions
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_question.*
 import xyz.manolos.quiz.R
+import xyz.manolos.quiz.ResultActivity
 import xyz.manolos.quiz.injector
 import xyz.manolos.quiz.model.Answer
 import xyz.manolos.quiz.model.Question
@@ -88,12 +90,14 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
     }
 
     override fun showError() {
-        // show toast
         Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
     }
 
     override fun showResult() {
-        Toast.makeText(this, "ACABOU - Acertou : " + presenter.correctAnswers, Toast.LENGTH_LONG).show()
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra("username" , username)
+        intent.putExtra("correctAnswer" , presenter.correctAnswers)
+        startActivity(intent)
         finish()
     }
 
