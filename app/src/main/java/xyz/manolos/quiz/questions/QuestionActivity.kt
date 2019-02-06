@@ -38,7 +38,7 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
     lateinit var presenter: QuestionPresenter
     private var questionNumber = 0
     private var currentQuestion: Question? = null
-    lateinit var username: String
+    private lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,16 +101,15 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
         Handler().postDelayed({
             questionNumber++
             presenter.nextStep(questionNumber)
-//            changeLayoutToReply()
         }, 1200)
     }
 
     override fun showProgressBar() {
-        progressBarFrame.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        progressBarFrame.visibility = View.GONE
+        progressBar.visibility = View.GONE
     }
 
 

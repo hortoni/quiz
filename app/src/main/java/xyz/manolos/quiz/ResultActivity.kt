@@ -16,7 +16,6 @@ class ResultActivity : AppCompatActivity() {
         username = intent.getStringExtra("username")
         correctAnswer = intent.getIntExtra("correctAnswer", 0)
 
-        correctAnswer = 10
         when (correctAnswer){
             0 -> resultTextView.text = username  + ", você não acertou nenhuma pergunta."
             1 -> resultTextView.text = username + ", você acertou 1 pergunta."
