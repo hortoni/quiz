@@ -1,11 +1,11 @@
 package xyz.manolos.quiz.questions
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -27,7 +27,6 @@ interface QuestionView {
     fun showProgressBar()
     fun hideProgressBar()
 }
-
 
 private const val QUESTION_NUMBER = "questionNumber"
 private const val CURRENT_QUESTION = "current_question"
@@ -57,11 +56,6 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
 
         currentQuestion?.let { showQuestion(it) } ?: presenter.nextStep(questionNumber)
 
-        nextQuestionButton.setOnClickListener {
-            questionNumber++
-            presenter.nextStep(questionNumber)
-        }
-
         replyQuestionButton.setOnClickListener {
             if (optionsList.getItemAtPosition(optionsList.checkedItemPosition) == null) {
                 Toast.makeText(this, R.string.error_select_asnwer, Toast.LENGTH_LONG).show()
@@ -77,17 +71,10 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
         questionTextView.text = currentQuestion!!.statement
         supportActionBar!!.title = "Questão " + (questionNumber + 1)
         val adapter = ArrayAdapter(this, R.layout.single_choice_item_left, currentQuestion!!.options)
+        optionsList.selector.colorFilter = PorterDuffColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_IN)
         optionsList.adapter = adapter
-        changeLayoutToReply()
     }
 
-    @SuppressLint("RestrictedApi")
-    private fun changeLayoutToReply() {
-        optionsList.isEnabled = true
-        optionsList.selector.colorFilter = PorterDuffColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_IN)
-        replyQuestionButton.visibility = View.VISIBLE
-        nextQuestionButton.visibility = View.GONE
-    }
 
     override fun showError() {
         Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
@@ -110,14 +97,12 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
             Toast.makeText(this, getString(R.string.wrong_answer), Toast.LENGTH_LONG).show()
             optionsList.selector.colorFilter = PorterDuffColorFilter(Color.RED, PorterDuff.Mode.SRC_IN)
         }
-        changeLayoutToNextQuestion()
-    }
 
-    @SuppressLint("RestrictedApi")
-    private fun changeLayoutToNextQuestion() {
-        optionsList.isEnabled = false
-        replyQuestionButton.visibility = View.GONE
-        nextQuestionButton.visibility = View.VISIBLE
+        Handler().postDelayed({
+            questionNumber++
+            presenter.nextStep(questionNumber)
+//            changeLayoutToReply()
+        }, 1200)
     }
 
     override fun showProgressBar() {
