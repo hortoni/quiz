@@ -52,4 +52,7 @@ dependencies {
     //Dagger
     implementation 'com.google.dagger:dagger:2.21'
     kapt 'com.google.dagger:dagger-compiler:2.21'
+
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:2.23.4'
 }
