@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">quiz</string>
+    <string name="app_name">Quiz</string>
     <string name="title_activity_question">Questão</string>
     <string name="nextQuestion">Próxima Questão</string>
     <string name="reply">Responder</string>
@@ -7,5 +7,8 @@
     <string name="wrong_answer">Resposta Incorreta</string>
     <string name="error">Error. Por favor tente novamente mais tarde.</string>
     <string name="error_select_asnwer">Por Favor, selecione uma resposta.</string>
+    <string name="your_name">Digite seu nome</string>
+    <string name="username_error">Por favor, digite seu nome antes de continuar.</string>
+    <string name="title_activity_result">ResultActivity</string>
 
 </resources>

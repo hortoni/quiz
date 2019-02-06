@@ -29,6 +29,7 @@ interface QuestionView {
 
 private const val QUESTION_NUMBER = "questionNumber"
 private const val CURRENT_QUESTION = "current_question"
+private const val USERNAME= "username"
 
 class QuestionActivity : AppCompatActivity(), QuestionView {
 
@@ -36,6 +37,7 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
     lateinit var presenter: QuestionPresenter
     private var questionNumber = 0
     private var currentQuestion: Question? = null
+    lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +46,8 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
         injector
             .plus(QuestionModule(this))
             .inject(this)
+
+        username = intent.getStringExtra("username")
 
         questionNumber = savedInstanceState?.getInt(QUESTION_NUMBER) ?: 0
 
@@ -126,6 +130,7 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
 
         outState.putParcelable(CURRENT_QUESTION, currentQuestion)
         outState.putInt(QUESTION_NUMBER, questionNumber)
+        outState.putString(USERNAME, username)
     }
 
 }

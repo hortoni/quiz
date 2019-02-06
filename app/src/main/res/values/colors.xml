@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <!--<color name="colorPrimary">#008577</color>-->
+    <!--<color name="colorPrimaryDark">#00574B</color>-->
+    <!--<color name="colorAccent">#D81B60</color>-->
+    <color name="colorPrimary">#FFAB17</color>
+    <color name="colorPrimaryDark">#DF8B00</color>
+    <color name="colorAccent">#00A99D</color>
     <color name="colorAccentLight">#EA3D82</color>
     <color name="grey">#CCCCCC</color>
+
+    <color name="yellowQuiz">#FFAB17</color>
 </resources>

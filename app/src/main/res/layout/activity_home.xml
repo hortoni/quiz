@@ -5,13 +5,39 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         tools:context=".HomeActivity">
 
-    <Button
+    <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_quiz"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="109dp" android:layout_marginEnd="117dp" android:layout_marginRight="117dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="117dp" android:layout_marginStart="117dp"/>
+
+    <EditText
+            android:id="@+id/usernameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:maxLength="15"
+            android:inputType="textCapWords"
+            android:hint="@string/your_name"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.4"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/goToQuizButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Começar Quiz!"
+            android:src="@drawable/ic_go"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

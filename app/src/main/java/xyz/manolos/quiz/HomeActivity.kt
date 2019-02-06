@@ -2,6 +2,7 @@ package xyz.manolos.quiz
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import xyz.manolos.quiz.questions.QuestionActivity
@@ -14,7 +15,12 @@ class HomeActivity : AppCompatActivity() {
 
         goToQuizButton.setOnClickListener {
             val intent = Intent(this, QuestionActivity::class.java)
-            startActivity(intent)
+            if (usernameEditText.text.isBlank()) {
+                Toast.makeText(this, getString(R.string.username_error), Toast.LENGTH_LONG).show()
+            } else {
+                intent.putExtra("username" , usernameEditText.text.toString())
+                startActivity(intent)
+            }
         }
     }
 }
