@@ -8,7 +8,12 @@ class ResultPresenter @Inject constructor(
 ) {
 
     fun getResultText(text: String, username : String, correctAnswer : Int){
-        view.showResultText(String.format(text, username, correctAnswer))
+        if (correctAnswer == 0) {
+            view.showResultZeroText(username)
+        } else {
+            view.showResultText(String.format(text, username, correctAnswer))
+        }
+
     }
 
     fun getImageResourceResult(correctAnswer: Int){

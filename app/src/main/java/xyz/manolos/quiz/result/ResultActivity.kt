@@ -11,6 +11,7 @@ import javax.inject.Inject
 
 interface ResultView {
     fun showResultText(text: String)
+    fun showResultZeroText(username: String)
     fun showResultImage(resource: Int)
 }
 
@@ -22,7 +23,7 @@ class ResultActivity : AppCompatActivity(), ResultView {
     @Inject
     lateinit var presenter: ResultPresenter
     private lateinit var username: String
-    private var correctAnswer : Int = 0
+    private var correctAnswer: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,12 +36,14 @@ class ResultActivity : AppCompatActivity(), ResultView {
         username = intent.getStringExtra(USERNAME)
         correctAnswer = intent.getIntExtra(CORRECT_ANSWER, 0)
 
-        presenter.getResultText(resources.getQuantityString(R.plurals.questions_result, correctAnswer),
-            username, correctAnswer)
+        presenter.getResultText(
+            resources.getQuantityString(R.plurals.questions_result, correctAnswer),
+            username, correctAnswer
+        )
 
         presenter.getImageResourceResult(correctAnswer)
 
-        playAgainButton.setOnClickListener{
+        playAgainButton.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             this.startActivity(intent)
@@ -48,8 +51,12 @@ class ResultActivity : AppCompatActivity(), ResultView {
         }
     }
 
-    override fun showResultText(text : String ) {
+    override fun showResultText(text: String) {
         resultTextView.text = text
+    }
+
+    override fun showResultZeroText(username: String) {
+        resultTextView.text = String.format(resources.getString(R.string.question_result_zero), username)
     }
 
     override fun showResultImage(resource: Int) {

@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:indeterminate="true"
-                android:padding="100dp"
+                android:padding="@dimen/progressbar_padding"
                 style="?android:attr/progressBarStyleSmall"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

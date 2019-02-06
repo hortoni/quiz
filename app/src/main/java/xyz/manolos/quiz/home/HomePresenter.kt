@@ -6,8 +6,8 @@ class HomePresenter @Inject constructor(
     private val view: HomeView
 ) {
 
-    fun goToQuiz(boolean: Boolean, errorMessage: String){
-        if (boolean)
+    fun goToQuiz(textviewIsBlank: Boolean, errorMessage: String){
+        if (textviewIsBlank)
             view.showError(errorMessage)
         else
             view.goQuestionActivity()
