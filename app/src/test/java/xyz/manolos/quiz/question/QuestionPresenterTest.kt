@@ -39,7 +39,7 @@ class QuestionPresenterTest {
     fun `should show error when fetch fails`() {
         given(questionService.fetch()).willReturn(Single.error(Throwable()))
         presenter.nextStep(1)
-        verify(view).showError()
+        verify(view).showErrorQuestion()
     }
 
     @Test
@@ -56,7 +56,7 @@ class QuestionPresenterTest {
         val answer = Answer("teste")
         given(questionService.sendAnswer("10", answer)).willReturn(Single.error(Throwable()))
         presenter.sendAnswer("10", answer)
-        verify(view).showError()
+        verify(view).showErrorAnswer()
     }
 
     @Test
