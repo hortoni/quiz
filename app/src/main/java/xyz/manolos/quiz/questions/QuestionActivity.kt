@@ -21,11 +21,14 @@ import javax.inject.Inject
 
 interface QuestionView {
     fun showQuestion(question: Question)
-    fun showError()
+    fun showErrorAnswer()
+    fun showErrorQuestion()
     fun showResult()
     fun showAnswerResult(result: Boolean)
     fun showProgressBar()
     fun hideProgressBar()
+    fun showReplyButton()
+    fun hideReplyButton()
 }
 
 private const val QUESTION_NUMBER = "question_number"
@@ -59,10 +62,9 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
 
         replyQuestionButton.setOnClickListener {
             if (optionsList.getItemAtPosition(optionsList.checkedItemPosition) == null) {
-                Toast.makeText(this, R.string.error_select_asnwer, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.error_select_answer, Toast.LENGTH_LONG).show()
             } else {
-                var answerString = optionsList.getItemAtPosition(optionsList.checkedItemPosition) as String
-                presenter.sendAnswer(currentQuestion!!.id, Answer(answerString))
+                presenter.sendAnswer(currentQuestion!!.id, Answer(optionsList.getItemAtPosition(optionsList.checkedItemPosition) as String))
             }
         }
     }
@@ -77,8 +79,15 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
     }
 
 
-    override fun showError() {
-        Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
+    override fun showErrorQuestion() {
+        Toast.makeText(this, getString(R.string.error_connection_question), Toast.LENGTH_LONG).show()
+        presenter.nextStep(questionNumber)
+    }
+
+    override fun showErrorAnswer() {
+        Toast.makeText(this, getString(R.string.error_connection_answer), Toast.LENGTH_LONG).show()
+        presenter.sendAnswer(currentQuestion!!.id, Answer(optionsList.getItemAtPosition(optionsList.checkedItemPosition) as String))
+
     }
 
     override fun showResult() {
@@ -87,6 +96,14 @@ class QuestionActivity : AppCompatActivity(), QuestionView {
         intent.putExtra(CORRECT_ANSWER, presenter.correctAnswers)
         startActivity(intent)
         finish()
+    }
+
+    override fun showReplyButton() {
+        replyQuestionButton.visibility = View.VISIBLE
+    }
+
+    override fun hideReplyButton() {
+        replyQuestionButton.visibility = View.GONE
     }
 
 

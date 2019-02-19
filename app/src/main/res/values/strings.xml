@@ -5,8 +5,9 @@
     <string name="reply">Responder</string>
     <string name="correct_answer">Resposta Correta</string>
     <string name="wrong_answer">Resposta Incorreta</string>
-    <string name="error">Error. Por favor tente novamente mais tarde.</string>
-    <string name="error_select_asnwer">Por Favor, selecione uma resposta.</string>
+    <string name="error_connection_question">Erro na conexão. Tentando achar uma questão.</string>
+    <string name="error_connection_answer">Erro na conexão. Tentando enviar a resposta.</string>
+    <string name="error_select_answer">Por Favor, selecione uma resposta.</string>
     <string name="your_name">Digite seu nome</string>
     <string name="username_error">Por favor, digite seu nome antes de continuar.</string>
     <string name="play_again">Jogar novamente</string>

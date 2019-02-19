@@ -34,9 +34,10 @@ class QuestionPresenter @Inject constructor(
                 onSuccess = {
                     view.showQuestion(it)
                     view.hideProgressBar()
+                    view.showReplyButton()
                 },
                 onError = {
-                    view.showError()
+                    view.showErrorQuestion()
                     view.hideProgressBar()
                 }
             )
@@ -45,6 +46,7 @@ class QuestionPresenter @Inject constructor(
 
     fun sendAnswer(questionId : String , answer : Answer) {
         view.showProgressBar()
+        view.hideReplyButton()
         questionService.sendAnswer(questionId, answer)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
@@ -56,7 +58,7 @@ class QuestionPresenter @Inject constructor(
                     view.hideProgressBar()
                 },
                 onError = {
-                    view.showError()
+                    view.showErrorAnswer()
                     view.hideProgressBar()
                 }
             )
